@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include<stdlib.h>
+struct node{
+    int data;
+    struct node *next;
+};
+struct node* insert(int data,struct node* head){
+    struct node* newnode=(struct node *)malloc(sizeof(struct node));
+    newnode->data=data;
+    newnode->next=NULL;
+    if(head==NULL){
+        head=newnode;
+    }else{
+        newnode->next=head;
+        head=newnode;
+    }
+    return head;
+}
+void display(struct node* head){
+    while(head!=NULL)
+    {
+        printf("%d ",head->data);
+        head=head->next;
+    }
+    
+}
+
+void spec(struct node* head, int pos, int data)
+{
+    struct node* nn=(struct node*)malloc(sizeof(struct node));
+    nn->data=data;
+    nn->next=NULL;
+    struct node* temp=head;
+    struct node*prev=NULL;
+    for(int i=0;i<pos;i++){
+        prev=temp;
+        temp=temp->next;
+    }
+    nn->next=temp;
+    prev->next=nn;
+    
+}
+
+int main(){
+    int n;
+    printf("Enter the number of nodes:\n");
+    scanf("%d",&n);
+    int data;
+    struct node* head=NULL;
+    printf("Enter the data:\n");
+    for(int i=1;i<=n;i++){
+        scanf("%d",&data);
+        head = insert(data,head); 
+    }
+    spec(head, 3, 100);
+    display(head);
+}

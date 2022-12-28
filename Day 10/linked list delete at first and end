@@ -1,0 +1,69 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+    int data;
+    struct node* next;
+};
+struct node* insert(struct node* head,int data){
+    struct node* nn=(struct node*)malloc(sizeof(struct node));
+    nn->data=data;
+    nn->next=NULL;
+    if(head==NULL)
+    {
+        head=nn;
+    }else{
+        struct node* temp=head;
+        while(temp->next!=NULL){
+            temp=temp->next;
+        }
+        temp->next=nn;
+    }
+    return head;
+}
+void display(struct node* head){
+    while(head!=NULL){
+        printf("%d ",head->data);
+        head=head->next;
+    }
+}
+struct node* deleteatfirst(struct node* head){
+    struct node* temp;
+    temp=head;
+    head=temp->next;
+    free(temp);
+    return head;
+}
+struct node* deleteatlast(struct node* head){
+    if(head->next==NULL){
+        free(head);
+        return NULL;
+    }else{
+        struct node* temp;
+        struct node* temp1;
+        temp=head;
+        while(temp->next!=NULL){
+            temp1=temp;
+            temp=temp->next;
+        }
+        temp1->next=NULL;
+        free(temp);
+    }
+    return head;
+}
+int main()
+{
+    int n;
+    printf("Enter the number of elements:\n");
+    scanf("%d",&n);
+    int data;
+    struct node* head=NULL;
+    for(int i=1;i<=n;i++){
+        scanf("%d",&data);
+       head =  insert(head,data);
+        
+    }
+    head=deleteatlast(head);
+    head=deleteatfirst(head);
+    display(head);
+    
+}
